@@ -6,7 +6,7 @@ namespace _13Zadanie
 {
     class WarehouseService
     {
-        private Dictionary<Guid, Product> _products;
+        private readonly Dictionary<Guid, Product> _products = new();
 
         public void AddProduct(Product product)
         {
@@ -21,6 +21,11 @@ namespace _13Zadanie
             }
 
             _products.Add(product.Id, product);
+        }
+
+        public Product GetProductById(Guid id)
+        {
+            return _products.TryGetValue(id, out Product product) ? product : throw new KeyNotFoundException("Продукт с таким ID не найден");
         }
     }
 }
